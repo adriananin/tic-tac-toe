@@ -14,27 +14,53 @@
       <div class="title--container"><span class="title">Tic Tac Toe</span></div>
     </header>
     <main>
+      <p class="player">Current Player: <span class="current-player"></span></p>
       <div class="container--wrapper">
         <div class="gameboard" id="gameboard">
-          <div class="box one">1</div>
-          <div class="box two">2</div>
-          <div class="box three">3</div>
-          <div class="box four">4</div>
-          <div class="box five">5</div>
-          <div class="box six">6</div>
-          <div class="box seven">7</div>
-          <div class="box eight">8</div>
-          <div class="box nine">9</div>
+          <div class="box one" data-index="0">1</div>
+          <div class="box two" data-index="1">2</div>
+          <div class="box three" data-index="2">3</div>
+          <div class="box four" data-index="3">4</div>
+          <div class="box five" data-index="4">5</div>
+          <div class="box six" data-index="5">6</div>
+          <div class="box seven" data-index="6">7</div>
+          <div class="box eight" data-index="7">8</div>
+          <div class="box nine" data-index="8">9</div>
         </div>
       </div>
       <div class="controls">
-        <input type="text" />
-        <input type="text" />
+        <div>
+          <label for="player1-name">Player 1 Name:</label>
+          <input type="text" id="player1-name" name="player1-name" required />
+          <label for="player1-marker">Player 1 Marker:</label>
+          <input
+            type="text"
+            id="player1-marker"
+            name="player1-marker"
+            maxlength="1"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="player2-name">Player 2 Name:</label>
+          <input type="text" id="player2-name" name="player2-name" required />
+          <label for="player2-marker">Player 2 Marker:</label>
+          <input
+            type="text"
+            id="player2-marker"
+            name="player2-marker"
+            maxlength="1"
+            required
+          />
+        </div>
+
         <button id="start">Start</button>
         <button id="restart">Restart</button>
       </div>
+
       <div class="message"></div>
-      <div class="result"></div>
+      <div class="result" style="display: none"></div>
     </main>
   </body>
 </html>
