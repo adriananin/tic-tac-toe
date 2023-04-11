@@ -1,9 +1,8 @@
 const createPlayer = (playerName, playerMarker) => {
-  const getName = () => playerName;
+  const getName = function () {
+    return playerName;
+  };
   const getMarker = function () {
-    // if (playerMarker !== "X" && playerMarker !== "O") {
-    //   alert("Invalid marker. Marker Must be 'X' or 'O'");
-    // }
     return playerMarker;
   };
 
@@ -11,8 +10,10 @@ const createPlayer = (playerName, playerMarker) => {
 };
 
 const gameboardModule = (function () {
-  let gameboard = ["", "", "", "", "", "", "", "", "X"];
-  const getBoard = () => gameboard;
+  let gameboard = ["", "", "", "", "", "", "", "", ""];
+  const getBoard = function () {
+    return gameboard;
+  };
 
   const placeMark = function (index, marker) {
     if (gameboard[index] === "") {
@@ -37,25 +38,21 @@ const gameboardModule = (function () {
 const gameModule = (function () {
   let gameboard = gameboardModule.getBoard();
   let currentPlayer = null;
+  let player1;
+  let player2;
 
   const player1NameInput = document.getElementById("player1-name");
   const player1MarkerInput = document.getElementById("player1-marker");
   const player2NameInput = document.getElementById("player2-name");
   const player2MarkerInput = document.getElementById("player2-marker");
 
-  const player1 = createPlayer(
-    player1NameInput.value,
-    player1MarkerInput.value.toUpperCase()
-  );
-  const player2 = createPlayer(
-    player2NameInput.value,
-    player2MarkerInput.value.toUpperCase()
-  );
-
   const switchPlayer = function () {
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    if (!currentPlayer) {
+      currentPlayer = player1;
+    } else {
+      currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
   };
-
   const handleClick = function (event) {
     const index = parseInt(event.target.dataset.index);
     if (isNaN(index)) {
@@ -111,12 +108,6 @@ const gameModule = (function () {
     return emptySpaces.length === 0;
   };
 
-  const reset = function () {
-    gameboardModule.resetBoard();
-    currentPlayer = player1;
-    render();
-  };
-
   const render = function () {
     gameboard = gameboardModule.getBoard();
     const boxes = document.querySelectorAll(".box");
@@ -127,18 +118,64 @@ const gameModule = (function () {
     document.querySelector(".current-player").textContent =
       currentPlayer.getName();
   };
+  const reset = function () {
+    gameboardModule.resetBoard();
+    currentPlayer = player1;
+    resetInputs();
+    render();
+  };
+
+  const resetInputs = function () {
+    player1NameInput.value = "";
+    player1MarkerInput.value = "";
+    player2NameInput.value = "";
+    player2MarkerInput.value = "";
+  };
+
+  const hideResult = function () {
+    const resultDiv = document.querySelector(".result");
+    resultDiv.style.display = "none";
+  };
+
+  const hideCurrentPlay = function () {
+    const currentPlay = document.querySelector(".current-player");
+    currentPlay.style.display = "none";
+  };
 
   const start = function () {
     gameboardModule.resetBoard();
+
     currentPlayer = player1;
+    player1 = createPlayer(player1NameInput.value, player1MarkerInput.value);
+    player2 = createPlayer(player2NameInput.value, player2MarkerInput.value);
+    if (
+      !player1NameInput.value ||
+      !player2NameInput.value ||
+      !player1MarkerInput.value ||
+      !player2MarkerInput.value
+    ) {
+      alert("Please fill in all player information!");
+      return;
+    }
+    if (player1MarkerInput.value === player2MarkerInput.value) {
+      alert("Player markers must be different!");
+      return;
+    }
     render();
+    switchPlayer();
     document.getElementById("gameboard").addEventListener("click", handleClick);
   };
 
-  return {
-    start,
-  };
+  return { start, hideResult, reset, hideCurrentPlay };
 })();
 
+gameModule.start();
 const startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", gameModule.start);
+
+const removeResult = document.querySelector(".gameboard");
+removeResult.addEventListener("click", gameModule.hideResult);
+
+const restartBtn = document.querySelector("#reset");
+restartBtn.addEventListener("click", gameModule.reset);
+restartBtn.addEventListener("click", gameModule.hideCurrentPlay);

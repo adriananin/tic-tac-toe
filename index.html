@@ -7,29 +7,19 @@
     <link rel="shortcut icon" href="img/x.svg" type="image/x-icon" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="index.js" defer></script>
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
   </head>
   <body>
     <header>
       <div class="title--container"><span class="title">Tic Tac Toe</span></div>
     </header>
     <main>
-      <p class="player">Current Player: <span class="current-player"></span></p>
-      <div class="container--wrapper">
-        <div class="gameboard" id="gameboard">
-          <div class="box one" data-index="0">1</div>
-          <div class="box two" data-index="1">2</div>
-          <div class="box three" data-index="2">3</div>
-          <div class="box four" data-index="3">4</div>
-          <div class="box five" data-index="4">5</div>
-          <div class="box six" data-index="5">6</div>
-          <div class="box seven" data-index="6">7</div>
-          <div class="box eight" data-index="7">8</div>
-          <div class="box nine" data-index="8">9</div>
-        </div>
-      </div>
-      <div class="controls">
-        <div>
+      <div class="players">
+        <p class="player">
+          Current Player: <span class="current-player"></span>
+        </p>
+
+        <div class="player">
           <label for="player1-name">Player 1 Name:</label>
           <input type="text" id="player1-name" name="player1-name" required />
           <label for="player1-marker">Player 1 Marker:</label>
@@ -37,12 +27,11 @@
             type="text"
             id="player1-marker"
             name="player1-marker"
-            maxlength="1"
             required
           />
         </div>
 
-        <div>
+        <div class="player">
           <label for="player2-name">Player 2 Name:</label>
           <input type="text" id="player2-name" name="player2-name" required />
           <label for="player2-marker">Player 2 Marker:</label>
@@ -50,17 +39,26 @@
             type="text"
             id="player2-marker"
             name="player2-marker"
-            maxlength="1"
             required
           />
         </div>
-
         <button id="start">Start</button>
-        <button id="restart">Restart</button>
+        <button id="reset">Restart</button>
+        <div class="result" style="display: none"></div>
       </div>
-
-      <div class="message"></div>
-      <div class="result" style="display: none"></div>
+      <div class="container--wrapper">
+        <div class="gameboard" id="gameboard">
+          <div class="box one" data-index="0">1</div>
+          <div class="box two" data-index="1"></div>
+          <div class="box three" data-index="2"></div>
+          <div class="box four" data-index="3"></div>
+          <div class="box five" data-index="4"></div>
+          <div class="box six" data-index="5"></div>
+          <div class="box seven" data-index="6"></div>
+          <div class="box eight" data-index="7"></div>
+          <div class="box nine" data-index="8"></div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
